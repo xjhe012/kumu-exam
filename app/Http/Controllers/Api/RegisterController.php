@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redis;
-use App\Services\UserServices;
+use App\Services\UserService;
 use Validator;
 class RegisterController extends Controller
 {
@@ -19,7 +19,7 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,UserServices $UserServices)
+    public function store(Request $request,UserService $UserService)
     {
         //Validate data
         $data = $request->only('email', 'password');

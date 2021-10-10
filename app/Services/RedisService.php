@@ -2,7 +2,7 @@
 
 namespace App\Services;
 use Illuminate\Support\Facades\Redis;
-class RedisServices {
+class RedisService {
 
 
     public function setUserInRedis($data)

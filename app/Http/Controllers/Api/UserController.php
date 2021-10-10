@@ -5,23 +5,23 @@ namespace App\Http\Controllers\Api;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\UserServices;
-use App\Services\RedisServices;
+use App\Services\UserService;
+use App\Services\RedisService;
 use Illuminate\Support\Facades\Redis;
 class UserController extends Controller
 {
 
-    public function index(UserServices $UserServices,RedisServices $RedisServices)
+    public function index(UserService $UserService,RedisService $RedisService)
     {
 
-        $data = $UserServices->setDataForRedis();
-        $formated_data = $RedisServices->setUserInRedis($data);
+        $data = $UserService->setDataForRedis();
+        $formated_data = $RedisService->setUserInRedis($data);
         return response()->json($formated_data);
     }
 
-    public function store(Request $request,UserServices $UserServices)
+    public function store(Request $request,UserService $UserService)
     {
-        $user_info = $UserServices->checkDuplicateEmail($request->email);
+        $user_info = $UserService->checkDuplicateEmail($request->email);
         if(!$user_info){
             $user = new User;
             $user->email = $request->email;
@@ -32,9 +32,9 @@ class UserController extends Controller
         return response()->json($user_info);
     }
 
-    public function show($user_name,UserServices $UserServices)
+    public function show($user_name,UserService $UserService)
     {
-        $UserServices->setUserInRedis($user_name);
+        $UserService->setUserInRedis($user_name);
         $values = Redis::get('name:'.$user_name);
 
         return response()->json($values);

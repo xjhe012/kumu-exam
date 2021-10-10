@@ -3,7 +3,7 @@
 namespace App\Services;
 use App\User;
 use Illuminate\Support\Facades\Redis;
-class UserServices {
+class UserService {
     public function __construct(User $user)
     {
         $this->UserModel = $user;
